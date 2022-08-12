@@ -15,6 +15,9 @@
             <p>{{ $message }}</p>
         </div>
     @endif
+    <div class="d-md-flex justify-content-md-end p-3">
+        <a class="btn btn-secondary" href="{{ route('students.create') }}">Добавить cтудена</a>
+    </div>
     <section class="content">
         <div class="container-fluid">
             <div class="card">

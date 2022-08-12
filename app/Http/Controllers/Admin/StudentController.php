@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-
+use App\Models\User;
+use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Arr;
 use App\Models\Student;
 use Illuminate\Http\Request;
+
 
 class StudentController extends Controller
 {
@@ -27,9 +31,11 @@ class StudentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create() // функция создания записей
+    public function create(Student $student) // функция создания записей
     {
-        return view('admin.students.create');
+        $users = DB::select('select * from users');
+         
+        return view('admin.students.create',compact('users','student'));
     }
 
     /**
@@ -41,9 +47,8 @@ class StudentController extends Controller
     public function store(Request $request)  //создание валидации формы
     {
         $request->validate([
-            'name' => 'required|min:3|max:50',
-            'lastname' => 'required|min:3|max:100',
-            'phone' => 'required|max:11',
+            'name' => 'required|min:1|max:50',
+            // 'phone' => 'required|max:11',
             'email' => 'required|max:50',
         ]);
 
@@ -72,8 +77,8 @@ class StudentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Student $student) //функция редоктирования записей
-    {
-        return view('admin.students.edit', compact('student'));
+    {   
+        return view('admin.students.edit',compact('student'));
     }
 
     /**
@@ -91,7 +96,6 @@ class StudentController extends Controller
             'phone' => 'required|max:11',
             'email' => 'required|max:50',
         ]);
-
         $student->update($request->all());
 
         return redirect()->route('students.index')

@@ -36,9 +36,10 @@
                                             id="exampleInputEmail1" placeholder="email" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">password</label>
-                                        <input type="text" value ="{{ $user -> password}}" name="password" class="form-control"
-                                            id="exampleInputEmail1" placeholder="password" required>
+                                        <div class="form-group">
+                                            <strong>Роль:</strong>
+                                            {!! Form::select('roles[]', $roles,$userRole, array('class' => 'form-control','multiple')) !!}
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- /.card-body -->

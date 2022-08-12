@@ -58,19 +58,21 @@
   // Checkboxes
 
   $container.append(
-    '<h5>Customize AdminLTE</h5><hr class="mb-2"/>'
+    '<h5>Options</h5><hr class="mb-2"/>'
   )
 
   var $dark_mode_checkbox = $('<input />', {
     type: 'checkbox',
     value: 1,
-    checked: $('body').hasClass('dark-mode'),
+    checked: 'checked',
     class: 'mr-1'
   }).on('click', function () {
     if ($(this).is(':checked')) {
-      $('body').addClass('dark-mode')
-    } else {
       $('body').removeClass('dark-mode')
+      // $(window).trigger('resize')
+    } else {
+      $('body').addClass('dark-mode')
+      // $(window).trigger('resize')
     }
   })
   var $dark_mode_container = $('<div />', { class: 'mb-4' }).append($dark_mode_checkbox).append('<span>Dark Mode</span>')

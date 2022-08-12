@@ -14,4 +14,5 @@ class Ball extends Model
         'subject_id',
         'ball',
     ];
+
 }

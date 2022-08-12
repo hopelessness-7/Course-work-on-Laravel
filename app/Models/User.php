@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
+
 class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasRoles;
@@ -22,6 +23,14 @@ class User extends Authenticatable
         'email',
         'password',
     ];
+
+    /**
+     * Get all of the comments for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+
+
 
     /**
      * The attributes that should be hidden for arrays.

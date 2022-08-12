@@ -4,7 +4,11 @@ namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
 use App\Models\Statement;
+use App\Models\Ball;
+use App\Models\Student;
+use App\Models\Teacher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StatementController extends Controller
 {
@@ -15,9 +19,14 @@ class StatementController extends Controller
      */
     public function index()
     {
-        // $statements = Statement::latest()->paginate(5);
-        // return view('student.statement.index', compact('statements'))
-        //     ->with('i', (request()->input('page', 1) - 1) * 5);
+        $statements = DB::table("balls")
+            ->join("students", "student_id", "=", "students.id")
+            ->join("subjects", "subject_id", "=", "subjects.id")
+            ->select("balls.id", "balls.ball","subjects.name","students.users_id","balls.created_at","balls.updated_at")
+            ->get();
+
+        return view('student.statement.index', compact('statements'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**

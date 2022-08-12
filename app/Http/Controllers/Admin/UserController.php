@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Arr;
 
 
 class UserController extends Controller
@@ -22,8 +24,9 @@ class UserController extends Controller
         $users = DB::table("model_has_roles")
             ->join("roles", "role_id", "=", "roles.id")
             ->join("users", "model_id", "=", "users.id")
-            ->select("users.id", "users.name", "users.email", "users.password", "roles.name", "model_has_roles.role_id")
+            ->select("users.id", "users.name", "users.email", "users.password", "model_has_roles.role_id")
             ->get();
+
         return view('admin.users.index', compact('users'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
@@ -65,9 +68,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit($id)
     {
-        return view('admin.users.edit', compact('user'));
+
+        $user = User::find($id);
+        $roles = Role::pluck('name','name')->all();
+        $userRole = $user->roles->pluck('name','name')->all();
+        return view('admin.users.edit',compact('user','roles','userRole'));
     }
 
     /**
@@ -77,10 +84,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request,$id)
     {
-
-        $user->update($request->all());
+        $user = User::find($id);
+        DB::table('model_has_roles')->where('model_id',$id)->delete();
+    
+        $user->assignRole($request->input('roles'));
+       
         return redirect()->route('users.index')
             ->with('success', 'Студент был успешно изменен.');
     }

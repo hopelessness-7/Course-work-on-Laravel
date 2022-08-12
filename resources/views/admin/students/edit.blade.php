@@ -42,6 +42,10 @@
                                     <strong>Номер:</strong>
                                     <input type="text" name="phone" value ="{{ $student -> phone}}" class="form-control" placeholder="номер Cтудента">
                                 </div>
+                                <div class="form-group" style="display: none">
+                                    <strong>юзер:</strong>
+                                    <input type="text" name="phone" value ="{{ $student -> users_id}}" class="form-control" placeholder="номер Cтудента">
+                                </div>
                                 <div class="form-group">
                                     <strong>Емаил:</strong>
                                     <input type="text" name="email" value ="{{ $student -> email}}" class="form-control" placeholder="Емаил Cтудента">

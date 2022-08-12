@@ -34,6 +34,8 @@ class LoginController extends Controller
             return '/admin_panel';
         } elseif($user->hasRole('student')){
             return '/student';
+        }elseif($user->hasRole('user')){
+            return '/';
         }
 
         // Of Course You Can Use route('routename') Helper fuction to generate Route

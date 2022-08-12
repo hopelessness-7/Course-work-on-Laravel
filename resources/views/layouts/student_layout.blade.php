@@ -4,8 +4,6 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Кабинет студента -  @yield('title')</title>
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="/admin/plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
@@ -24,8 +22,11 @@
   <link rel="stylesheet" href="/admin/plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
   <link rel="stylesheet" href="/admin/plugins/summernote/summernote-bs4.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"
+  integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ=" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition sidebar-mini layout-fixed" id="bodyID">
 <div class="wrapper">
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -46,7 +47,7 @@
           <a class="d-block" href="{{ route('logout') }}"
             onclick="event.preventDefault();
             document.getElementById('logout-form').submit();">
-              {{ __('Logout') }}
+              {{ __('Выход') }}
           </a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
             @csrf
@@ -63,6 +64,19 @@
                 Ведомость
               </p>
             </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('studentSchedules.index') }}" class="nav-link">
+              <p>
+                <i class="fab fa-500px"></i>
+                Расписание
+              </p>
+            </a>
+          </li>
+        </ul>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <button onclick="btn_dark()" class="btn btn-secondary">Dark Mode</button>
           </li>
         </ul>
       </nav>
@@ -92,6 +106,21 @@
 <script src="/admin/plugins/jquery/jquery.min.js"></script>
 <script src="/admin/dist/js/adminlte.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+<script src="/admin/dist/js/demo.js"></script>
+<script>
+
+  var bodyDark = document.getElementById('bodyID').classList;
+  function btn_dark(){
+      if (bodyDark.contains('dark-mode') == true){
+
+          bodyDark.remove('dark-mode');
+          
+      }else{
+
+          bodyDark.add('dark-mode');
+      }
+  }
+</script>
 </body>
 </html>
 
